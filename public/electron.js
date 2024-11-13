@@ -15,7 +15,7 @@ let isDev;
 
 db.serialize(() => {
   db.run(
-    "CREATE TABLE IF NOT EXISTS loginuser (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, type TEXT)",
+    "CREATE TABLE IF NOT EXISTS loginuser (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, type TEXT, access TEXT, name TEXT)",
     (err) => {
       if (err) {
         console.error("Error creating users table:", err.message);

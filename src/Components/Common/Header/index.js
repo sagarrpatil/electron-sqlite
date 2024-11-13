@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Drawer, CssBaseline, Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -16,14 +16,32 @@ import Person3Icon from '@mui/icons-material/Person3';
 import SmsIcon from '@mui/icons-material/Sms';
 
 const drawerWidth = 200;
-
+const menuItems = [
+  { to: "/dashboard", icon: <DashboardIcon sx={{color: "black"}} />, text: "Dashboard" },
+  { to: "/enquiry", icon: <InquiryIcon sx={{color: "black"}} />, text: "Enquiry" },
+  { to: "/trial", icon: <AirlineSeatReclineNormalIcon sx={{color: "black"}} />, text: "Trial" },
+  { to: "/AddMember", icon: <PersonAddAlt1Icon sx={{color: "black"}} />, text: "Add Member" },
+  { to: "/Renew", icon: <CloudSyncIcon sx={{color: "black"}} />, text: "Renew" },
+  { to: "/PersonalTrainner", icon: <FollowTheSignsIcon sx={{color: "black"}} />, text: "Personal Trainer" },
+  { to: "/OldReceipt", icon: <ReceiptIcon sx={{color: "black"}} />, text: "Old Receipt" },
+  { to: "/Balance", icon: <AccountBalanceWalletIcon sx={{color: "black"}} />, text: "Balance" },
+  { to: "/ActiveDeactive", icon: <CompareArrowsIcon sx={{color: "black"}} />, text: "Active/Deactive" },
+  { to: "/MemberInformation", icon: <Person3Icon sx={{color: "black"}} />, text: "Member Information" },
+  { to: "/AutoSms", icon: <SmsIcon sx={{color: "black"}} />, text: "Auto Sms" }
+];
 const Header = (WrappedComponent) => {
   return function Layout(props) {
     const [leftOpen, setLeftOpen] = React.useState(true);
     const [rightOpen, setRightOpen] = React.useState(false);
-
+    const navigate = useNavigate();
     const toggleLeftDrawer = () => setLeftOpen(!leftOpen);
     const toggleRightDrawer = () => setRightOpen(!rightOpen);
+
+    useEffect(() => {
+      if(!localStorage.getItem("loggedinUser")){
+        navigate("/")
+      }
+    }, [])
 
     return (
       <Box sx={{ display: 'flex' }}>
@@ -51,74 +69,14 @@ const Header = (WrappedComponent) => {
           }}>
           <Toolbar />
           <List>
-            <ListItem button component={Link} to="/dashboard">
-              <ListItemIcon>
-                <DashboardIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText sx={{color: "black"}} primary="Dashboard" />
-            </ListItem>
-            <ListItem button component={Link} to="/enquiry">
-              <ListItemIcon>
-                <InquiryIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText sx={{color: "black"}}  primary="Enquiry" />
-            </ListItem>
-            <ListItem button component={Link} to="/trial">
-              <ListItemIcon>
-                <AirlineSeatReclineNormalIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Trial" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/AddMember">
-              <ListItemIcon>
-                <PersonAddAlt1Icon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Add Member" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/Renew">
-              <ListItemIcon>
-                <CloudSyncIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Renew" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/PersonalTrainner">
-              <ListItemIcon>
-                <FollowTheSignsIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Personal Trainner" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/OldReceipt">
-              <ListItemIcon>
-                <ReceiptIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Old Receipt" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/Balance">
-              <ListItemIcon>
-                <AccountBalanceWalletIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Balance" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/ActiveDeactive">
-              <ListItemIcon>
-                <CompareArrowsIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Active/Deactive" sx={{color: "black"}} />
-            </ListItem>
-            <ListItem button component={Link} to="/MemberInformation" sx={{color: "black"}} >
-              <ListItemIcon>
-                <Person3Icon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Member Information" />
-            </ListItem>
-            <ListItem button component={Link} to="/AutoSms" sx={{color: "black"}} >
-              <ListItemIcon>
-                <SmsIcon sx={{color: "black"}} />
-              </ListItemIcon>
-              <ListItemText primary="Auto Sms" />
-            </ListItem>
-
-
+            {menuItems.map((item, index) => (
+              <ListItem button component={Link} to={item.to} key={index}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText sx={{color: "black"}} primary={item.text} />
+              </ListItem>
+            ))}
           </List>
         </Drawer>
 
@@ -157,3 +115,6 @@ const Header = (WrappedComponent) => {
 };
 
 export default Header;
+
+
+
