@@ -63,55 +63,55 @@ const Header = (WrappedComponent) => {
               </ListItemIcon>
               <ListItemText sx={{color: "black"}}  primary="Enquiry" />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/trial">
               <ListItemIcon>
                 <AirlineSeatReclineNormalIcon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Trial" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/AddMember">
               <ListItemIcon>
                 <PersonAddAlt1Icon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Add Member" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/Renew">
               <ListItemIcon>
                 <CloudSyncIcon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Renew" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/PersonalTrainner">
               <ListItemIcon>
                 <FollowTheSignsIcon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Personal Trainner" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/OldReceipt">
               <ListItemIcon>
                 <ReceiptIcon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Old Receipt" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/Balance">
               <ListItemIcon>
                 <AccountBalanceWalletIcon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Balance" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry">
+            <ListItem button component={Link} to="/ActiveDeactive">
               <ListItemIcon>
                 <CompareArrowsIcon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Active/Deactive" sx={{color: "black"}} />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry" sx={{color: "black"}} >
+            <ListItem button component={Link} to="/MemberInformation" sx={{color: "black"}} >
               <ListItemIcon>
                 <Person3Icon sx={{color: "black"}} />
               </ListItemIcon>
               <ListItemText primary="Member Information" />
             </ListItem>
-            <ListItem button component={Link} to="/enquiry" sx={{color: "black"}} >
+            <ListItem button component={Link} to="/AutoSms" sx={{color: "black"}} >
               <ListItemIcon>
                 <SmsIcon sx={{color: "black"}} />
               </ListItemIcon>
@@ -128,7 +128,8 @@ const Header = (WrappedComponent) => {
           sx={{
             flexGrow: 1,
             p: 2,
-            mt: 4,
+            mt: 2,
+            pt:4,
             transition: 'margin 0.3s',
             // marginLeft: leftOpen ? `${drawerWidth}px` : '0px',
             marginRight: rightOpen ? `${drawerWidth}px` : '0px',

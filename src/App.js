@@ -3,6 +3,18 @@ import Login from './Components/Login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import DashboardPage from './Components/Pages/DashboardPage';
 import Header from './Components/Common/Header';
+import Enquiry from './Components/Pages/Enquiry';
+import Trial from './Components/Pages/Trial';
+import ActiveDeactive from './Components/Pages/ActiveDeactive';
+import AddMember from './Components/Pages/AddMember';
+import Balance from './Components/Pages/Balance';
+import MemberInformation from './Components/Pages/MemberInformation';
+import OldReceipt from './Components/Pages/OldReceipt';
+import PersonalTrainner from './Components/Pages/PersonalTrainner';
+import Renew from './Components/Pages/Renew';
+import AutoSms from './Components/Pages/AutoSms';
+
+
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -11,13 +23,13 @@ function App() {
   const [editing, setEditing] = useState(null);
 
   useEffect(() => {
-    fetchUsers();
+    // fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    const result = await window.electronAPI.getUsers();
-    setUsers(result);
-  };
+  // const fetchUsers = async () => {
+  //   const result = await window.electronAPI.getUsers();
+  //   setUsers(result);
+  // };
 
   const handleCreate = async () => {
     if (name && email) {
@@ -51,6 +63,20 @@ function App() {
 
 
   const Dashboard = Header(DashboardPage);
+  const HEnquiry = Header(Enquiry);
+  const HTrial = Header(Trial);
+  const HActiveDeactive = Header(ActiveDeactive);
+  const HAddMember = Header(AddMember);
+  const HBalance = Header(Balance);
+  const HMemberInformation = Header(MemberInformation);
+  const HOldReceipt = Header(OldReceipt);
+  const HPersonalTrainner = Header(PersonalTrainner);
+  const HRenew = Header(Renew);
+  const HAutoSms = Header(AutoSms);
+
+
+
+
 
   return (
     <div>
@@ -58,6 +84,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/enquiry" element={<HEnquiry />} />
+        <Route path="/trial" element={<HTrial />} />
+        <Route path="/ActiveDeactive" element={<HActiveDeactive />} />
+        <Route path="/AddMember" element={<HAddMember />} />
+        <Route path="/Balance" element={<HBalance />} />
+        <Route path="/MemberInformation" element={<HMemberInformation />} /> 
+         <Route path="/OldReceipt" element={<HOldReceipt />} />
+        <Route path="/PersonalTrainner" element={<HPersonalTrainner />} />
+        <Route path="/Renew" element={<HRenew />} />
+        <Route path="/AutoSms" element={<HAutoSms />} />
+
         <Route path="*" element={<Login />} />
       </Routes>
     </Router>

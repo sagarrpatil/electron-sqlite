@@ -27,6 +27,27 @@ db.serialize(() => {
 });
 
 
+db.serialize(() => {
+  db.run(`
+    CREATE TABLE IF NOT EXISTS members (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      birthDate TEXT,
+      gender TEXT,
+      weight REAL,
+      height REAL,
+      phoneNumber TEXT,
+      email TEXT,
+      membershipStartDate TEXT,
+      billDate TEXT,
+      address TEXT,
+      bloodGroup TEXT,
+      capturedImage BLOB
+    )
+  `);
+});
+
+
 async function createWindow() {
   if (isDev === undefined) {
     isDev = (await import('electron-is-dev')).default;
@@ -75,16 +96,54 @@ ipcMain.handle('login-user', (event, { email, password }) => {
 });
 
 
-// CRUD Operations
-ipcMain.handle('create-user', (event, user) => {
-  const { name, email } = user;
+
+ipcMain.handle('get-last-member-id', () => {
   return new Promise((resolve, reject) => {
-    db.run("INSERT INTO users (name, email) VALUES (?, ?)", [name, email], function(err) {
-      if (err) reject(err);
-      resolve({ id: this.lastID, name, email });
+    db.get("SELECT id FROM members ORDER BY id DESC LIMIT 1", (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row ? row.id : null); // Return the ID if found, otherwise null
+      }
     });
   });
 });
+
+ipcMain.handle('add-member', (event, user) => {
+  const { name, birthDate, gender, weight, height, phoneNumber, email, membershipStartDate, billDate, capturedImage, address, bloodGroup } = user;
+
+  return new Promise((resolve, reject) => {
+    db.run(
+      "INSERT INTO members (name, birthDate, gender, weight, height, phoneNumber, email, membershipStartDate, billDate, bloodGroup, address, capturedImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        name, birthDate, gender, weight, height, phoneNumber, email, membershipStartDate, billDate, bloodGroup, address, capturedImage
+      ],
+      function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve({
+            id: this.lastID,
+            name,
+            birthDate,
+            gender,
+            weight,
+            height,
+            phoneNumber,
+            email,
+            membershipStartDate,
+            billDate,
+            bloodGroup,
+            address,
+            capturedImage,
+          });
+        }
+      }
+    );
+  });
+});
+
+
 
 ipcMain.handle('get-users', () => {
   return new Promise((resolve, reject) => {
