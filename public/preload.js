@@ -6,3 +6,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   updateUser: (user) => ipcRenderer.invoke('update-user', user),
   deleteUser: (id) => ipcRenderer.invoke('delete-user', id),
 });
+
+contextBridge.exposeInMainWorld('electron', {
+  login: (email, password) => ipcRenderer.invoke('login-user', { email, password }),
+});

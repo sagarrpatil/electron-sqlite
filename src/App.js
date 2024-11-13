@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Login from './Components/Login';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import DashboardPage from './Components/Pages/DashboardPage';
+import Header from './Components/Common/Header';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -45,37 +49,18 @@ function App() {
     setUsers(users.filter((user) => user.id !== id));
   };
 
+
+  const Dashboard = Header(DashboardPage);
+
   return (
     <div>
-      <div>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {editing ? (
-          <button onClick={handleUpdate}>Update</button>
-        ) : (
-          <button onClick={handleCreate}>Create</button>
-        )}
-      </div>
-
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            {user.name} ({user.email})
-            <button onClick={() => handleEdit(user)}>Edit</button>
-            <button onClick={() => handleDelete(user.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<Login />} />
+      </Routes>
+    </Router>
     </div>
   );
 }
